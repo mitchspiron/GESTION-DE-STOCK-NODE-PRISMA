@@ -99,3 +99,29 @@ export const remove = (req, res) => {
             })
         })
 }
+
+export const getChiffreAffaire = async (req, res) => {
+    const { id } = req.params
+    await prisma.$queryRaw`SELECT client.numClient, client.nomClient, (SELECT SUM(commande.qte*produit.puProduit) AS total FROM commande, produit WHERE commande.numProduit = produit.numProduit AND commande.numClient = ${id}) AS totale FROM client WHERE client.numClient = ${id}`
+        .then((data) => {
+            res.status(200).send(data)
+        })
+        .catch((error) => {
+            res.status(500).send({
+                message: error.message || 'Some error occurred while retrieving clients',
+            })
+        })
+}
+
+export const getClientWithProduitBetweenDate = async (req, res) => {
+    const { nomClient, dateA, dateB } = req.body
+    await prisma.$queryRaw`SELECT client.nomClient, produit.designProduit, commande.dateCommande FROM client, produit, commande WHERE client.numClient = commande.numClient AND produit.numProduit = commande.numProduit AND client.nomClient LIKE ${nomClient} AND commande.dateCommande BETWEEN ${dateA} AND ${dateB}`
+        .then((data) => {
+            res.status(200).send(data)
+        })
+        .catch((error) => {
+            res.status(500).send({
+                message: error.message || 'Some error occurred while retrieving clients',
+            })
+        })
+}
