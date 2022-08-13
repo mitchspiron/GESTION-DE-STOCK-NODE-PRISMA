@@ -108,7 +108,7 @@ export const getChiffreAffaire = async (req, res) => {
         })
         .catch((error) => {
             res.status(500).send({
-                message: error.message || 'Some error occurred while retrieving clients',
+                message: error.message || 'Some error occurred while retrieving making getChiffreAffaire',
             })
         })
 }
@@ -121,7 +121,7 @@ export const getClientWithProduitBetweenDate = async (req, res) => {
         })
         .catch((error) => {
             res.status(500).send({
-                message: error.message || 'Some error occurred while retrieving clients',
+                message: error.message || 'Some error occurred while retrieving making getClientWithProduitBetweenDate',
             })
         })
 }
