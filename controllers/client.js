@@ -5,7 +5,13 @@ const { client } = prisma
 
 export const getAll = (req, res) => {
     client
-        .findMany()
+        .findMany({
+            orderBy: [
+                {
+                    numClient: 'desc',
+                },
+            ],
+        })
         .then((data) => {
             res.status(200).send(data)
         })
