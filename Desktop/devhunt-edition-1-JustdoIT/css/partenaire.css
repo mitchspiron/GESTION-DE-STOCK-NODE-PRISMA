@@ -1,0 +1,217 @@
+@import url("../footer.css");
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background:#EFB08a; 
+}
+.header {
+    display: flex;
+    background-color:#efb18a60;
+    width:100vw ;
+    position:absolute;
+    z-index: 1;
+    height: 80px;
+    border-bottom: 3px solid #EFB08a;
+}
+.mode{
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+.logo{
+    width: 80px;
+    height: 70px;
+}
+
+
+.title {
+    left:100px;
+    top: 20px;
+    position: absolute;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:30px;
+    font-weight:100px;
+}
+.partie1{
+    background-image: url(../images/copie_rogner.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 70vh;
+    position: relative;
+}
+
+.texte{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 50vw;
+}
+
+.texte h2{
+    /* position: relative; */
+    margin-bottom: 200px;
+    color:black;
+    font-size: 6em;
+}
+
+.texte h2::before{
+    content: attr(data-text);
+    position: absolute;
+    color:#590905;
+    width: 600px;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 4px solid #590905;
+    animation: animate 3s linear infinite;
+} 
+
+@keyframes animate{
+    0%, 10%, 100%{
+        width: 0;
+    } 
+    70%, 90%{
+        width: 70vw;
+    }
+}
+
+.partie2{
+    top: 6em;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.elements1{
+
+    width:15%;
+    height: 500px;
+    perspective: 1000px;
+}
+
+.flip-box-inner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style:preserve-3d;
+}
+.elements1:hover .flip-box-inner{
+    cursor: pointer;
+    transform: rotateY(180deg);
+} 
+
+.flip-box-front, .flip-box-back{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.flip-box-front{
+    border: 2px solid #590905;
+    border-radius: 100px;
+    padding-top: 25px;
+}
+
+.flip-box-front img{
+    padding-top: 50px;
+    width: 60%;
+    height: 30%;
+    align-items: center;
+}
+
+.flip-box-back{
+    background-color: #5c1924;
+    border-radius: 100px;
+    color: black;
+    transform: rotateY(180deg);
+}
+
+.flip-box-back p{
+    padding: 10%;
+    font-size: 100%;
+}
+
+.slogan{
+    padding-top: 50%;
+}
+.flip-box-back .soratra{
+    padding-top: 50%;
+}
+/* .flip-box-back .soratra3{
+    padding-top: 50%;
+}
+
+.flip-box-back .soratra4{
+    padding-top: 50%;
+}
+
+.flip-box-back .soratra5{
+    padding-top: 50%;
+} */
+
+.elements2{
+    width:15%;
+    height: 500px;
+    margin-top: 100px;
+    perspective: 1000px;
+}
+
+.elements2:hover .flip-box-inner{
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+
+.partie3{
+    top: 6em;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.sary1{
+    position: absolute;
+    left: 200px;
+    top: -15%;
+
+}
+.mode{
+    position: absolute;
+    right:20px;
+}
+.btn{
+    color: antiquewhite;
+    background-color: #5c1924;
+    border: rgb(197, 154, 53);
+    margin-top: 10px;
+    margin-left: 10px;
+    width:60px;
+    border-radius: 5px;
+    height:40px;
+    border:2px solid #EFB08a;
+    transition:0.3s all ease-in-out ;
+    font-size: 15px;
+}
+#d:hover{
+    background-color: black;
+    color: white;
+}
+#l:hover{
+    background-color: white;
+    color: black;
+}
+.dark{
+    background-color: black;
+    color: azure;
+}
