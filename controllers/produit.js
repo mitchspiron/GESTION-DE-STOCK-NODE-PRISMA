@@ -4,6 +4,9 @@ const prisma = new PrismaClient()
 const { produit } = prisma
 
 export const getAll = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     produit
         .findMany()
         .then((data) => {
@@ -17,6 +20,9 @@ export const getAll = (req, res) => {
 }
 
 export const get = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
 
     produit
@@ -36,6 +42,9 @@ export const get = (req, res) => {
 }
 
 export const create = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { designProduit, puProduit, stockProduit } = req.body
 
     produit
@@ -57,6 +66,9 @@ export const create = (req, res) => {
 }
 
 export const update = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
     const { designProduit, puProduit, stockProduit } = req.body
 
@@ -84,6 +96,9 @@ export const update = (req, res) => {
 }
 
 export const remove = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
 
     produit

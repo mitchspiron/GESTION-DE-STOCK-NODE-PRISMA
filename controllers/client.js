@@ -4,6 +4,9 @@ const prisma = new PrismaClient()
 const { client } = prisma
 
 export const getAll = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     client
         .findMany({
             orderBy: [
@@ -23,6 +26,9 @@ export const getAll = (req, res) => {
 }
 
 export const get = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
 
     client
@@ -42,6 +48,9 @@ export const get = (req, res) => {
 }
 
 export const create = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { nomClient } = req.body
 
     client
@@ -61,6 +70,9 @@ export const create = (req, res) => {
 }
 
 export const update = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
     const { nomClient } = req.body
 
@@ -86,6 +98,9 @@ export const update = (req, res) => {
 }
 
 export const remove = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
 
     client
@@ -107,6 +122,9 @@ export const remove = (req, res) => {
 }
 
 export const getChiffreAffaire = async (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
     await prisma.$queryRaw`SELECT client.numClient, client.nomClient, (SELECT SUM(commande.qte*produit.puProduit) AS total FROM commande, produit WHERE commande.numProduit = produit.numProduit AND commande.numClient = ${id}) AS totale FROM client WHERE client.numClient = ${id}`
         .then((data) => {
@@ -120,6 +138,9 @@ export const getChiffreAffaire = async (req, res) => {
 }
 
 export const getClientWithProduitBetweenDate = async (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { nomClient, dateA, dateB } = req.body
     await prisma.$queryRaw`SELECT client.nomClient, produit.designProduit, commande.dateCommande FROM client, produit, commande WHERE client.numClient = commande.numClient AND produit.numProduit = commande.numProduit AND client.nomClient LIKE ${nomClient} AND commande.dateCommande BETWEEN ${dateA} AND ${dateB}`
         .then((data) => {

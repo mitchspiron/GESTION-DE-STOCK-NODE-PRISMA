@@ -32,6 +32,9 @@ export const getAll = async (req, res) => {
 }
 
 export const get = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { id } = req.params
 
     commande
@@ -51,6 +54,9 @@ export const get = (req, res) => {
 }
 
 export const create = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { numClient, numProduit, qte } = req.body
     const dateCommande = new Date()
 
@@ -95,6 +101,9 @@ export const create = (req, res) => {
 }
 
 export const update = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { numClient, numProduit, qte } = req.body
     const { id } = req.params
     const dateCommande = new Date()
@@ -124,6 +133,9 @@ export const update = (req, res) => {
 }
 
 export const remove = (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
     const { idCommande, idProduit, qteProduit } = req.params
 
     produit
