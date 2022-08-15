@@ -157,7 +157,7 @@ export const getClientWithCA = async (req, res) => {
     BigInt.prototype.toJSON = function () {
         return this.toString()
     }
-    await prisma.$queryRaw`SELECT client.numClient, client.nomClient, (SELECT SUM(commande.qte*produit.puProduit) AS total FROM commande, produit WHERE commande.numProduit = produit.numProduit AND commande.numClient = client.numClient) AS totale FROM client`
+    await prisma.$queryRaw`SELECT client.numClient, client.nomClient, SUM(commande.qte*produit.puProduit) AS total FROM commande, produit, client WHERE commande.numProduit = produit.numProduit AND commande.numClient = client.numClient GROUP BY client.numClient ORDER BY client.numClient`
         .then((data) => {
             res.status(200).send(data)
         })
