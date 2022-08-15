@@ -141,8 +141,9 @@ export const getClientWithProduitBetweenDate = async (req, res) => {
     BigInt.prototype.toJSON = function () {
         return this.toString()
     }
-    const { nomClient, dateA, dateB } = req.body
-    await prisma.$queryRaw`SELECT client.nomClient, produit.designProduit, commande.dateCommande FROM client, produit, commande WHERE client.numClient = commande.numClient AND produit.numProduit = commande.numProduit AND client.nomClient LIKE ${nomClient} AND commande.dateCommande BETWEEN ${dateA} AND ${dateB}`
+    const { dateA, dateB } = req.body
+    const { numClient } = req.params
+    await prisma.$queryRaw`SELECT client.nomClient, produit.designProduit, commande.dateCommande FROM client, produit, commande WHERE client.numClient = commande.numClient AND produit.numProduit = commande.numProduit AND client.numClient = ${numClient} AND commande.dateCommande BETWEEN ${dateA} AND ${dateB}`
         .then((data) => {
             res.status(200).send(data)
         })
