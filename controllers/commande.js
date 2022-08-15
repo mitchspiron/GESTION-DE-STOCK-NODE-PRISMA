@@ -53,15 +53,14 @@ export const get = (req, res) => {
         })
 }
 
-export const create = (req, res) => {
-    BigInt.prototype.toJSON = function () {
-        return this.toString()
-    }
-    const { numClient, numProduit, qte } = req.body
-    const dateCommande = new Date()
-
-    commande
-        .create({
+export const create = async (req, res) => {
+    try {
+        BigInt.prototype.toJSON = function () {
+            return this.toString()
+        }
+        const { numClient, numProduit, qte } = req.body
+        const dateCommande = new Date()
+        const createCommande = await commande.create({
             data: {
                 numClient: parseInt(numClient),
                 numProduit: parseInt(numProduit),
@@ -69,35 +68,20 @@ export const create = (req, res) => {
                 dateCommande: dateCommande,
             },
         })
-        .then((data) => {
-            res.status(201).send(data)
+        const updateProduit = await produit.update({
+            where: {
+                numProduit: parseInt(numProduit),
+            },
+            data: {
+                stockProduit: {
+                    decrement: parseInt(qte),
+                },
+            },
         })
-        .then(() => {
-            produit
-                .update({
-                    where: {
-                        numProduit: parseInt(numProduit),
-                    },
-                    data: {
-                        stockProduit: {
-                            decrement: parseInt(qte),
-                        },
-                    },
-                })
-                .then((data) => {
-                    res.status(200).send(data)
-                })
-                .catch((error) => {
-                    res.status(500).send({
-                        message: error.message || `Some error occurred while updating the produit stock`,
-                    })
-                })
-        })
-        .catch((error) => {
-            res.status(500).send({
-                message: error.message || 'Some error occurred while creating the commande',
-            })
-        })
+        res.status(200).json({ createCommande, updateProduit })
+    } catch (error) {
+        res.status(404).json({ error })
+    }
 }
 
 export const update = (req, res) => {
@@ -132,14 +116,13 @@ export const update = (req, res) => {
         })
 }
 
-export const remove = (req, res) => {
-    BigInt.prototype.toJSON = function () {
-        return this.toString()
-    }
-    const { idCommande, idProduit, qteProduit } = req.params
-
-    produit
-        .update({
+export const remove = async (req, res) => {
+    try {
+        BigInt.prototype.toJSON = function () {
+            return this.toString()
+        }
+        const { idCommande, idProduit, qteProduit } = req.params
+        const updateProduit = await produit.update({
             where: {
                 numProduit: parseInt(idProduit),
             },
@@ -149,22 +132,13 @@ export const remove = (req, res) => {
                 },
             },
         })
-        .then(() => {
-            commande
-                .delete({
-                    where: {
-                        numCommande: parseInt(idCommande),
-                    },
-                })
-                .then(() => {
-                    res.status(200).send({
-                        message: 'Commande was deleted successfully',
-                    })
-                })
+        const removeCommande = await commande.delete({
+            where: {
+                numCommande: parseInt(idCommande),
+            },
         })
-        .catch((error) => {
-            res.status(500).send({
-                message: error.message || `Some error occurred while deleting the commande`,
-            })
-        })
+        res.status(200).json({ updateProduit, removeCommande })
+    } catch (error) {
+        res.status(404).json({ error })
+    }
 }
