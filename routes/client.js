@@ -15,7 +15,7 @@ import {
 router.get('/', getAll)
 router.get('/ca/:id', getChiffreAffaire)
 router.get('/chiffreA', getClientWithCA)
-router.get('/ca/btdate/:id', getClientWithProduitBetweenDate)
+router.get('/ca/btdate/:numClient', getClientWithProduitBetweenDate)
 router.get('/:id', get)
 router.post('/', create)
 router.put('/:id', update)
