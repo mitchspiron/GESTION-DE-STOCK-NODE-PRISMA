@@ -3,7 +3,7 @@ const { PrismaClient } = pkg
 const prisma = new PrismaClient()
 const { commande, produit } = prisma
 
-export const getAll = (req, res) => {
+/* export const getAll = (req, res) => {
     commande
         .findMany()
         .then((data) => {
@@ -12,6 +12,21 @@ export const getAll = (req, res) => {
         .catch((error) => {
             res.status(500).send({
                 message: error.message || 'Some error occurred while retrieving commandes',
+            })
+        })
+} */
+
+export const getAll = async (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
+    await prisma.$queryRaw`SELECT numCommande, client.numClient, client.nomClient, produit.numProduit, produit.designProduit, produit.puProduit, commande.qte, (commande.qte*produit.puProduit) AS total, commande.dateCommande FROM commande, client, produit WHERE commande.numProduit = produit.numProduit AND commande.numClient = client.numClient`
+        .then((data) => {
+            res.status(200).send(data)
+        })
+        .catch((error) => {
+            res.status(500).send({
+                message: error.message || 'Some error occurred while retrieving making getChiffreAffaire',
             })
         })
 }

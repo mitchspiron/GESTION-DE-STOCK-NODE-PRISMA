@@ -8,24 +8,24 @@ datasource db {
 }
 
 model client {
-  numClient Int        @id @default(autoincrement())
+  numClient BigInt        @id @default(autoincrement())
   nomClient String     @db.VarChar(255)
   commande  commande[]
 }
 
 model produit {
-  numProduit    Int        @id @default(autoincrement())
+  numProduit    BigInt        @id @default(autoincrement())
   designProduit String     @db.VarChar(255)
-  puProduit     Int
-  stockProduit  Int
+  puProduit     BigInt
+  stockProduit  BigInt
   commande      commande[]
 }
 
 model commande {
-  numCommande  Int      @id @default(autoincrement())
-  numClient    Int
-  numProduit   Int
-  qte          Int
+  numCommande  BigInt      @id @default(autoincrement())
+  numClient    BigInt
+  numProduit   BigInt
+  qte          BigInt
   dateCommande DateTime @db.DateTime(0)
   client       client   @relation(fields: [numClient], references: [numClient], onDelete: Cascade, map: "commande_ibfk_1")
   produit      produit  @relation(fields: [numProduit], references: [numProduit], onDelete: Cascade, map: "commande_ibfk_2")
