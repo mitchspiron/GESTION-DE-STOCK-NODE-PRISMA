@@ -26,7 +26,7 @@ export const getAll = async (req, res) => {
         })
         .catch((error) => {
             res.status(500).send({
-                message: error.message || 'Some error occurred while retrieving making getChiffreAffaire',
+                message: error.message || 'Some error occurred while getting commande list',
             })
         })
 }

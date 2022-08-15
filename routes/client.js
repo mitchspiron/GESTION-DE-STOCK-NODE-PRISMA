@@ -9,10 +9,12 @@ import {
     remove,
     getChiffreAffaire,
     getClientWithProduitBetweenDate,
+    getClientWithCA,
 } from '../controllers/client'
 
 router.get('/', getAll)
 router.get('/ca/:id', getChiffreAffaire)
+router.get('/chiffreA', getClientWithCA)
 router.get('/ca', getClientWithProduitBetweenDate)
 router.get('/:id', get)
 router.post('/', create)

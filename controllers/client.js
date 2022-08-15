@@ -131,3 +131,18 @@ export const getClientWithProduitBetweenDate = async (req, res) => {
             })
         })
 }
+
+export const getClientWithCA = async (req, res) => {
+    BigInt.prototype.toJSON = function () {
+        return this.toString()
+    }
+    await prisma.$queryRaw`SELECT client.numClient, client.nomClient, (SELECT SUM(commande.qte*produit.puProduit) AS total FROM commande, produit WHERE commande.numProduit = produit.numProduit AND commande.numClient = client.numClient) AS totale FROM client`
+        .then((data) => {
+            res.status(200).send(data)
+        })
+        .catch((error) => {
+            res.status(500).send({
+                message: error.message || 'Some error occurred while retrieving making getClientWithProduitBetweenDate',
+            })
+        })
+}
