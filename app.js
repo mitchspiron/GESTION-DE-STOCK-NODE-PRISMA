@@ -21,7 +21,7 @@ server.get('/', (req, res) => {
     })
 })
 
-import { clientRoutes, produitRoutes, commandeRoutes } from './routes/'
+import { clientRoutes, produitRoutes, commandeRoutes } from './routes/index.js'
 server.use('/client', clientRoutes)
 server.use('/produit', produitRoutes)
 server.use('/commande', commandeRoutes)
