@@ -7,7 +7,9 @@
     "scripts": {
         "dev": "nodemon --experimental-specifier-resolution=node app.js",
         "format:fix": "prettier --write .",
-        "lint:fix": "eslint --fix ."
+        "lint:fix": "eslint --fix .",
+        "prebuild": "rimraf dist",
+        "dev:prod": "node dist/app"
     },
     "author": "amaurel",
     "license": "ISC",
