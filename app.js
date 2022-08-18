@@ -27,5 +27,6 @@ server.use('/produit', produitRoutes)
 server.use('/commande', commandeRoutes)
 
 server.listen(process.env.SERVER_PORT)
+//console.log('Server is running at http://127.0.0.1:' + process.env.SERVER_PORT)
 
 export default server
